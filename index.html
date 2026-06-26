@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KRONOS APEX | The Zenith of Haute Horlogerie</title>
+    <meta name="description" content="Experience the KRONOS Apex, a luxury timepiece forged from 316L stainless steel, housing the automatic Caliber K-18 movement. Hand-crafted engineering meets timeless design.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Preloader Screen -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-content">
+            <h1 class="preloader-title">KRONOS</h1>
+            <p class="preloader-subtitle">APEX COLLECTION</p>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="progress-text" id="progress-text">0%</div>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">KRONOS</a>
+            <nav class="nav-menu">
+                <a href="#hero-scroll" class="nav-link">Overview</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#specifications" class="nav-link">Specifications</a>
+                <a href="#craftsmanship" class="nav-link">Craftsmanship</a>
+            </nav>
+            <div class="nav-cta">
+                <a href="#acquire" class="btn btn-outline">Acquire</a>
+            </div>
+            <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Scroll Hero Section (Holds the canvas scroll animation) -->
+    <section id="hero-scroll" class="hero-scroll-container">
+        <div class="canvas-sticky-wrapper">
+            <canvas id="watch-canvas"></canvas>
+            
+            <!-- Absolute Text Overlays during scroll -->
+            <div class="scroll-overlays">
+                
+                <!-- Frame Group 1 (0% - 20% scroll) -->
+                <div class="overlay-text active" id="text-frame-1">
+                    <h2 class="hero-title serif">KRONOS APEX</h2>
+                    <p class="hero-subtitle accent">THE ZENITH OF TIMEKEEPING</p>
+                    <div class="scroll-indicator">
+                        <span class="mouse-icon"><span class="mouse-wheel"></span></span>
+                        <span class="scroll-label">Scroll to experience</span>
+                    </div>
+                </div>
+
+                <!-- Frame Group 2 (25% - 45% scroll) -->
+                <div class="overlay-text" id="text-frame-2">
+                    <span class="section-tag accent">MATERIAL SHAPED BY TIME</span>
+                    <h3 class="overlay-heading serif">316L Stainless Steel</h3>
+                    <p class="overlay-desc">Forged at 1500°C and hand-finished with meticulous detail. Features a scratch-resistant sapphire crystal dome with double anti-reflective coating.</p>
+                </div>
+
+                <!-- Frame Group 3 (50% - 70% scroll) -->
+                <div class="overlay-text" id="text-frame-3">
+                    <span class="section-tag accent">THE HEART OF PRECISION</span>
+                    <h3 class="overlay-heading serif">Caliber K-18</h3>
+                    <p class="overlay-desc">A Swiss-engineered automatic mechanical movement. Self-winding system running at 28,800 vibrations per hour, complete with a 72-hour reserve.</p>
+                </div>
+
+                <!-- Frame Group 4 (75% - 100% scroll) -->
+                <div class="overlay-text" id="text-frame-4">
+                    <h3 class="overlay-heading serif">A New Perspective</h3>
+                    <p class="overlay-desc">A masterpiece engineered to defy limits. Classic elegance fused with avant-garde mechanical architecture.</p>
+                    <a href="#acquire" class="btn btn-gold">Pre-Order Now</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Features Section -->
+    <section id="features" class="section features-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag accent">DETAILS OF THE UNCOMPROMISING</span>
+                <h2 class="section-title serif">Exceptional Craftsmanship</h2>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                            <polyline points="2 17 12 22 22 17" />
+                            <polyline points="2 12 12 17 22 12" />
+                        </svg>
+                    </div>
+                    <h4 class="feature-title serif">Sapphire Dome</h4>
+                    <p class="feature-desc">Virtually indestructible dome sapphire crystal, second only to diamond in hardness, ensuring lifelong clarity.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                    </div>
+                    <h4 class="feature-title serif">72-Hour Reserve</h4>
+                    <p class="feature-desc">A dual-barrel power system ensures that your timepiece remains charged and perfectly accurate even through the weekend.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2L2 22h20L12 2z" />
+                        </svg>
+                    </div>
+                    <h4 class="feature-title serif">100M Water Resistance</h4>
+                    <p class="feature-desc">Engineered with double-gasket screw-down crown to withstand professional diving conditions down to 10 atmospheres.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h4 class="feature-title serif">Super-LumiNova</h4>
+                    <p class="feature-desc">Premium Swiss luminescence pigments coated on hands and markers for unparalleled legibility in dark environments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Specifications Section -->
+    <section id="specifications" class="section specs-section">
+        <div class="container">
+            <div class="specs-wrapper">
+                <div class="specs-info">
+                    <span class="section-tag accent">TECHNICAL PARAMETERS</span>
+                    <h2 class="section-title serif">Uncompromising Dimensions</h2>
+                    <p class="specs-intro">Every component of the Kronos Apex is measured down to the micrometer, built for maximum comfort and striking visual presence on the wrist.</p>
+                    
+                    <div class="spec-list">
+                        <div class="spec-item">
+                            <span class="spec-label">Case Diameter</span>
+                            <span class="spec-value">41 mm</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Case Thickness</span>
+                            <span class="spec-value">12.4 mm</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Lug-to-Lug Distance</span>
+                            <span class="spec-value">48.2 mm</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Lug Width</span>
+                            <span class="spec-value">20 mm</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Water Resistance</span>
+                            <span class="spec-value">100 Meters / 10 ATM</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Caliber Weight</span>
+                            <span class="spec-value">42 grams</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="specs-visual">
+                    <div class="specs-accent-box">
+                        <span class="box-number serif">0.01</span>
+                        <span class="box-label">MILLIMETER TOLERANCE</span>
+                        <p class="box-text">Each link of the solid oyster bracelet is custom-fitted to ensure a seamless articulation that curves perfectly around your wrist.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Craftsmanship Section -->
+    <section id="craftsmanship" class="section craftsmanship-section">
+        <div class="container">
+            <div class="craft-content">
+                <span class="section-tag accent">THE ART OF HAUTE HORLOGERIE</span>
+                <h2 class="craft-title serif">Forged in Heritage,<br>Perfected by Tech</h2>
+                <p class="craft-text">While standard movements are mass-produced, every single Caliber K-18 is assembled by a single master watchmaker in our atelier. It takes three months and over 240 hours of assembly, testing, and regulating to construct a single Kronos Apex timepiece. The result is not just a tool for measuring time, but a legacy on your wrist.</p>
+                <div class="craft-stats">
+                    <div class="stat-item">
+                        <span class="stat-number serif">185</span>
+                        <span class="stat-label">INDIVIDUAL PARTS</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number serif">25</span>
+                        <span class="stat-label">JEWELS</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number serif">300</span>
+                        <span class="stat-label">HOURS OF HAND-POLISHING</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Acquire Section (CTA) -->
+    <section id="acquire" class="section acquire-section">
+        <div class="container">
+            <div class="acquire-card">
+                <div class="acquire-content">
+                    <h2 class="acquire-title serif">Enter the Circle</h2>
+                    <p class="acquire-desc">The Kronos Apex is produced in strictly limited quantities of 500 numbered pieces worldwide. Request an allocation to begin your journey.</p>
+                    
+                    <form class="acquire-form" onsubmit="event.preventDefault(); alert('Thank you. A specialist will contact you within 24 hours.');">
+                        <div class="form-group">
+                            <input type="text" placeholder="Full Name" required class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Email Address" required class="form-input">
+                        </div>
+                        <button type="submit" class="btn btn-gold btn-block">Request Allocation</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo logo">KRONOS</a>
+                    <p class="footer-tagline">Excellence in every rotation.</p>
+                </div>
+                <div class="footer-links">
+                    <h5 class="footer-link-title">Collections</h5>
+                    <a href="#" class="footer-link">Apex</a>
+                    <a href="#" class="footer-link">Chronograph</a>
+                    <a href="#" class="footer-link">Heritage</a>
+                    <a href="#" class="footer-link">Bespoke</a>
+                </div>
+                <div class="footer-links">
+                    <h5 class="footer-link-title">Atelier</h5>
+                    <a href="#" class="footer-link">Philosophy</a>
+                    <a href="#" class="footer-link">Craftsmanship</a>
+                    <a href="#" class="footer-link">Service & Care</a>
+                    <a href="#" class="footer-link">Boutiques</a>
+                </div>
+                <div class="footer-links">
+                    <h5 class="footer-link-title">Legal</h5>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Use</a>
+                    <a href="#" class="footer-link">Warranty</a>
+                    <a href="#" class="footer-link">Press</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2026 KRONOS Horology S.A. All rights reserved.</p>
+                <div class="socials">
+                    <a href="#" class="social-link">Instagram</a>
+                    <a href="#" class="social-link">YouTube</a>
+                    <a href="#" class="social-link">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP & ScrollTrigger CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Main JS Application -->
+    <script src="app.js"></script>
+</body>
+</html>
