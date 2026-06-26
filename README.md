@@ -1,19 +1,25 @@
 # ⌚ WatchScape
 
-> **A premium 3D luxury watch showcase built with React, Three.js, and GSAP.**  
-Experience cinematic scroll animations, immersive 3D visuals, and a modern luxury-inspired user interface.
+A premium 3D luxury watch showcase built using **React**, **Three.js**, and **GSAP**. WatchScape delivers a cinematic browsing experience with scroll-driven storytelling, immersive 3D visuals, and luxury-inspired UI/UX.
+
+---
+
+## 🌐 Live Demo
+
+🔗 https://watch-scape.vercel.app/
 
 ---
 
 ## ✨ Features
 
 - 🎨 Luxury-inspired modern UI
-- ⌚ Interactive 3D watch models
-- 🎬 Smooth scroll-driven animations
-- ⚡ GSAP-powered transitions
-- 🌌 Three.js 3D experience
-- 📱 Fully responsive design
-- 🚀 Optimized performance
+- ⌚ Interactive 3D watch experience
+- 🎬 Cinematic scroll-driven storytelling
+- ⚡ Smooth GSAP ScrollTrigger animations
+- 🌌 Three.js powered 3D visuals
+- ✨ Premium micro-interactions
+- 📱 Fully responsive across all devices
+- 🚀 Performance optimized
 - 🧩 Modular and reusable React components
 
 ---
@@ -22,16 +28,17 @@ Experience cinematic scroll animations, immersive 3D visuals, and a modern luxur
 
 - React
 - Three.js
-- GSAP
+- GSAP (ScrollTrigger)
 - JavaScript
 - Vite
-- CSS / Tailwind CSS
+- CSS
+- Tailwind CSS
 
 ---
 
 ## 📂 Project Structure
 
-```text
+```bash
 WatchScape/
 ├── public/
 │   ├── images/
@@ -55,59 +62,67 @@ WatchScape/
 
 ## 🚀 Getting Started
 
-### Clone the Repository
+### Clone the repository
 
 ```bash
 git clone https://github.com/tanvi1107/WatchScape.git
 ```
 
-### Navigate to the Project
+### Navigate into the project
 
 ```bash
 cd WatchScape
 ```
 
-### Install Dependencies
+### Install dependencies
 
 ```bash
 npm install
 ```
 
-### Start the Development Server
+### Start the development server
 
 ```bash
 npm run dev
 ```
 
-Visit:
+Open your browser and visit:
 
-```text
+```
 http://localhost:5173
 ```
 
----
-
-## 📸 Preview
-
-Add screenshots or a demo GIF here.
-
-```
-screenshots/home.png
-screenshots/hero.gif
-```
 
 ---
 
-## 🎯 Roadmap
+## 🎯 Challenges
 
-- [ ] Advanced scroll storytelling
-- [ ] 360° Watch Viewer
-- [ ] Watch customization
-- [ ] Camera transitions
-- [ ] Interactive product details
-- [ ] Dark mode
-- [ ] Performance optimizations
-- [ ] Mobile gesture support
+- Building smooth scroll-driven image sequence animations.
+- Optimizing GSAP ScrollTrigger performance.
+- Creating a premium luxury experience while maintaining smooth performance.
+- Ensuring responsiveness across different screen sizes.
+
+---
+
+## 📚 What I Learned
+
+- Advanced GSAP animations and ScrollTrigger.
+- Three.js integration with React.
+- Performance optimization for animation-heavy websites.
+- Creating reusable React component architecture.
+- Designing premium user experiences with smooth interactions.
+
+---
+
+## 🚀 Future Improvements
+
+- 360° Watch Viewer
+- Watch Customization
+- Interactive Product Details
+- Camera-based Product Storytelling
+- Dark Mode
+- AR Watch Preview
+- AI-powered Watch Recommendations
 
 ---
 
@@ -128,7 +143,7 @@ git checkout -b feature/amazing-feature
 git commit -m "Add amazing feature"
 ```
 
-4. Push to the branch
+4. Push the branch
 
 ```bash
 git push origin feature/amazing-feature
@@ -140,7 +155,7 @@ git push origin feature/amazing-feature
 
 ## ⭐ Support
 
-If you enjoyed this project, consider giving it a ⭐ on GitHub!
+If you like this project, consider giving it a ⭐ on GitHub!
 
 ---
 
@@ -148,16 +163,15 @@ If you enjoyed this project, consider giving it a ⭐ on GitHub!
 
 **Tanvi Bhatt**
 
-- GitHub: https://github.com/tanvi1107
+GitHub: https://github.com/tanvi1107
+
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License.
+This project is licensed under the **MIT License**.
 
 ---
 
-<p align="center">
-Made with ❤️ using React, Three.js & GSAP.
-</p>
+Made with ❤️ using **React**, **Three.js**, and **GSAP**.
