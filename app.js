@@ -67,9 +67,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function drawFrame(img) {
         if (!img || !img.complete) return;
 
-        // Size canvas buffer to display size
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Support High-DPI / Retina screens for maximum sharpness
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
 
         const imgWidth = img.naturalWidth || 1280;
         const imgHeight = img.naturalHeight || 720;
@@ -93,6 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Apply high-quality image interpolation algorithms
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        
         ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
     }
 
