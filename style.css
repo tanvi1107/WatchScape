@@ -9,7 +9,7 @@
     --bg-charcoal: #121212;
     --text-white: #ffffff;
     --text-grey: #8a8a93;
-    --text-muted: #515154;
+    --text-muted: #7c7c82;
     --accent-gold: #c5a880; /* Elegant champagne gold */
     --accent-gold-hover: #dfcbb5;
     --border-color: rgba(255, 255, 255, 0.08);
@@ -126,76 +126,98 @@ body {
     width: 100%;
     height: 100%;
     background-color: var(--bg-black);
-    z-index: 1000;
+    z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), visibility 1s;
-}
-
-.preloader.fade-out {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+    contain: layout paint; /* Isolate preloader reflow from the rest of the page */
 }
 
 .preloader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
     text-align: center;
 }
 
 .preloader-title {
     font-family: var(--font-serif);
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-weight: 300;
-    letter-spacing: 0.2em;
-    margin-bottom: 0.5rem;
+    letter-spacing: 0.25em;
+    text-indent: 0.25em; /* Corrects center shift from letter-spacing */
     color: var(--text-white);
+    text-transform: uppercase;
     opacity: 0;
-    transform: translateY(20px);
-    animation: preloaderReveal 1s forwards 0.3s;
+    will-change: transform, opacity;
+}
+
+.luxury-loader {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: preloaderRevealScale 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.4s;
+}
+
+.loader-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.loader-bg-circle {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.04);
+    stroke-width: 2;
+}
+
+.loader-progress-circle {
+    fill: none;
+    stroke: var(--accent-gold);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 283;
+    stroke-dashoffset: 283;
+}
+
+.loader-percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--text-white);
+    letter-spacing: 0.05em;
 }
 
 .preloader-subtitle {
     font-family: var(--font-sans);
-    font-size: 0.8rem;
-    letter-spacing: 0.3em;
+    font-size: 0.75rem;
+    font-weight: 300;
+    letter-spacing: 0.4em;
+    text-indent: 0.4em; /* Corrects center shift from letter-spacing */
     color: var(--accent-gold);
-    margin-bottom: 2rem;
+    text-transform: uppercase;
     opacity: 0;
-    transform: translateY(20px);
-    animation: preloaderReveal 1s forwards 0.5s;
-}
-
-.progress-container {
-    width: 240px;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.08);
-    margin: 0 auto 1rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.progress-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 0%;
-    background-color: var(--accent-gold);
-    transition: width 0.1s ease;
-}
-
-.progress-text {
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    color: var(--text-grey);
-    letter-spacing: 0.1em;
+    will-change: transform, opacity;
 }
 
 @keyframes preloaderReveal {
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes preloaderRevealScale {
+    to {
+        opacity: 1;
+        transform: scale(1);
     }
 }
 
@@ -211,6 +233,7 @@ body {
     -webkit-backdrop-filter: blur(15px);
     border-bottom: 1px solid var(--border-color);
     transition: var(--transition-normal);
+    opacity: 0; /* Animated down by GSAP on entry */
 }
 
 .nav-container {
@@ -227,6 +250,7 @@ body {
     font-size: 1.5rem;
     font-weight: 400;
     letter-spacing: 0.15em;
+    text-indent: 0.15em;
     color: var(--text-white);
     text-decoration: none;
     transition: var(--transition-normal);
@@ -322,6 +346,7 @@ body {
     z-index: 1;
     /* Polish filters for high-contrast metal reflections and deep shadows */
     filter: contrast(1.06) brightness(1.02) saturate(1.04);
+    will-change: transform, opacity; /* Promote to own compositor layer for GPU-accelerated animation */
 }
 
 /* Absolute Scroll Overlays */
@@ -338,8 +363,6 @@ body {
 .overlay-text {
     position: absolute;
     opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
     pointer-events: auto;
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
 }
@@ -351,39 +374,21 @@ body {
     width: 45%;
     max-width: 550px;
     text-align: left;
-    transform: translateY(30px);
-}
-#text-frame-1.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
 }
 
 #text-frame-2 {
     top: 50%;
     left: 8%;
-    transform: translateY(-50%) translateY(30px);
     width: 35%;
     max-width: 450px;
-}
-#text-frame-2.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(-50%) translateY(0);
 }
 
 #text-frame-3 {
     top: 50%;
     right: 8%;
-    transform: translateY(-50%) translateY(30px);
     width: 35%;
     max-width: 450px;
     text-align: right;
-}
-#text-frame-3.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(-50%) translateY(0);
 }
 
 #text-frame-4 {
@@ -392,12 +397,6 @@ body {
     width: 45%;
     max-width: 550px;
     text-align: left;
-    transform: translateY(30px);
-}
-#text-frame-4.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
 }
 
 /* Scroll indicator on landing */
@@ -424,8 +423,8 @@ body {
     position: absolute;
     top: 6px;
     left: 50%;
-    transform: translateX(-50%);
     border-radius: 1px;
+    will-change: transform, opacity;
     animation: scrollMouseWheel 1.8s infinite;
 }
 
@@ -438,11 +437,11 @@ body {
 
 @keyframes scrollMouseWheel {
     0% {
-        top: 6px;
+        transform: translate3d(-50%, 0, 0);
         opacity: 1;
     }
     100% {
-        top: 18px;
+        transform: translate3d(-50%, 10px, 0);
         opacity: 0;
     }
 }
@@ -743,10 +742,16 @@ body {
     transition: var(--transition-normal);
 }
 
+.form-input::placeholder {
+    color: var(--text-grey);
+    opacity: 0.5;
+}
+
 .form-input:focus {
     outline: none;
     border-color: var(--accent-gold);
     background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 15px rgba(197, 168, 128, 0.08);
 }
 
 /* Footer Section */
@@ -823,6 +828,18 @@ body {
 
 /* Mobile Responsiveness styling */
 @media (max-width: 1100px) {
+    html {
+        font-size: 15px;
+    }
+    
+    .hero-title {
+        font-size: 4.2rem;
+    }
+    
+    .overlay-heading {
+        font-size: 2.8rem;
+    }
+
     .features-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -851,7 +868,24 @@ body {
     }
 
     .nav-menu {
-        display: none; /* Can add burger menu support in JS if needed */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+        z-index: 100;
+        display: flex;
+        pointer-events: none;
+        opacity: 0;
+        transform: scale(1.05);
+        transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .nav-cta {
@@ -881,18 +915,9 @@ body {
     }
 
     .nav-menu.mobile-active {
-        display: flex !important;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: var(--bg-black);
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 3rem;
-        z-index: 100;
+        pointer-events: auto;
+        opacity: 1;
+        transform: scale(1);
     }
 
     .nav-menu.mobile-active .nav-link {
@@ -917,13 +942,7 @@ body {
         right: auto;
         width: 84%;
         text-align: center;
-        transform: translateY(-50%) translateY(30px);
-    }
-    #text-frame-1.active, #text-frame-4.active {
-        transform: translateY(-50%) translateY(0);
-    }
-    #text-frame-2.active, #text-frame-3.active {
-        transform: translateY(-50%) translateY(0);
+        transform: translateY(-50%);
     }
     
     .craft-title {
@@ -951,5 +970,548 @@ body {
 
     .footer-brand {
         grid-column: span 2;
+    }
+}
+
+/* --- 6. STORYTELLING FEATURE SHOWCASE SECTION --- */
+.storytelling-features {
+    background-color: var(--bg-black);
+    position: relative;
+    padding: 0; /* Remove standard padding because sticky wrapper handles it */
+}
+
+.features-sticky-wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.storytelling-features .section-header {
+    margin-bottom: 1.5rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.section-desc-luxury {
+    max-width: 600px;
+    margin: 1rem auto 0;
+    font-size: 1rem;
+    color: var(--text-grey);
+    line-height: 1.6;
+}
+
+.showcase-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: 480px;
+    margin: 1.5rem auto 0;
+}
+
+.watch-center-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 260px;
+    height: 260px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0; /* Animated by GSAP on desktop */
+}
+
+.watch-float-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+}
+
+.watch-render-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.9));
+    will-change: transform, filter;
+    backface-visibility: hidden;
+}
+
+.watch-glow {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle at center, rgba(197, 168, 128, 0.16) 0%, rgba(197, 168, 128, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    will-change: transform, opacity;
+}
+
+.connectors-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.connector-line {
+    fill: none;
+    stroke: var(--accent-gold);
+    stroke-width: 1.25;
+    stroke-opacity: 0.45;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000; /* Animated in JS */
+    will-change: stroke-dashoffset, stroke, stroke-width, stroke-opacity, filter;
+    transition: stroke 0.4s ease, stroke-width 0.4s ease, stroke-opacity 0.4s ease, filter 0.4s ease;
+}
+
+/* Feature Callouts */
+.feature-callout {
+    position: absolute;
+    width: 250px;
+    z-index: 6;
+    opacity: 0; /* Animated in JS */
+}
+
+.callout-tl {
+    top: 8%;
+    left: 1%;
+    text-align: right;
+}
+
+.callout-tr {
+    top: 8%;
+    right: 1%;
+    text-align: left;
+}
+
+.callout-bl {
+    bottom: 12%;
+    left: 1%;
+    text-align: right;
+}
+
+.callout-br {
+    bottom: 12%;
+    right: 1%;
+    text-align: left;
+}
+
+.callout-title {
+    font-size: 1.25rem;
+    color: var(--text-white);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease, text-shadow 0.4s ease;
+    will-change: transform;
+}
+
+.callout-desc {
+    font-size: 0.82rem;
+    color: var(--text-grey);
+    line-height: 1.5;
+    transition: color 0.4s ease;
+}
+
+/* Elegant Hover Interactions for Callouts & Connectors */
+.showcase-container:has(#callout-sapphire:hover) #line-sapphire,
+.showcase-container:has(#callout-case:hover) #line-case,
+.showcase-container:has(#callout-movement:hover) #line-movement,
+.showcase-container:has(#callout-strap:hover) #line-strap {
+    stroke-opacity: 0.95;
+    stroke-width: 2px;
+    stroke: #ffffff; /* pure white highlight */
+    filter: drop-shadow(0 0 5px var(--accent-gold));
+}
+
+#callout-sapphire:hover .callout-title,
+#callout-movement:hover .callout-title {
+    color: var(--accent-gold);
+    transform: translateX(6px); /* shift slightly towards the watch */
+    text-shadow: 0 0 8px rgba(197, 168, 128, 0.4);
+}
+
+#callout-case:hover .callout-title,
+#callout-strap:hover .callout-title {
+    color: var(--accent-gold);
+    transform: translateX(-6px); /* shift slightly towards the watch */
+    text-shadow: 0 0 8px rgba(197, 168, 128, 0.4);
+}
+
+.feature-callout:hover .callout-desc {
+    color: var(--text-white);
+}
+
+/* CTA Explore button */
+.craft-cta-wrapper {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    z-index: 6;
+    opacity: 0; /* Animated in JS */
+}
+
+.btn-craftsmanship-explore {
+    position: relative;
+    overflow: hidden;
+    padding: 0.6rem 1.4rem; /* Reduced from 0.8rem 2rem */
+    font-size: 0.78rem; /* Reduced from 0.85rem */
+    letter-spacing: 0.08em;
+    transition: var(--transition-normal);
+}
+
+.btn-craftsmanship-explore .arrow {
+    display: inline-block;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-craftsmanship-explore:hover .arrow {
+    transform: translateX(6px);
+}
+
+/* Responsive Overrides for Mobile Storytelling */
+@media (max-width: 768px) {
+    .storytelling-features {
+        padding: 6rem 0;
+    }
+    
+    .features-sticky-wrapper {
+        height: auto;
+        display: block;
+        overflow: visible;
+    }
+
+    .showcase-container {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2.5rem;
+        margin: 2.5rem auto 0;
+    }
+
+    .watch-center-wrapper {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 220px;
+        height: 220px;
+        opacity: 1; /* Always visible on mobile load */
+    }
+
+    .connectors-svg {
+        display: none; /* Hide connector lines on mobile */
+    }
+
+    .feature-callout {
+        position: relative;
+        width: 100%;
+        max-width: 320px;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        text-align: center !important;
+        margin-bottom: 0.5rem;
+        opacity: 1; /* Controlled by mobile staggers */
+    }
+
+    .craft-cta-wrapper {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        width: auto;
+        display: block;
+        margin-top: 3rem;
+        opacity: 1; /* Controlled by mobile staggers */
+    }
+}
+
+/* Premium Section Transitions Hardware Acceleration */
+/* Note: 'filter' removed from will-change — it is no longer scrubbed, only toggled via class */
+#features .container,
+#specifications .container,
+#craftsmanship .container,
+#acquire .container,
+.scroll-overlays,
+.footer {
+    will-change: transform, opacity;
+    transform-origin: center center;
+}
+
+/* Off-screen sections: skip rendering until near viewport for faster initial load */
+#features,
+#specifications,
+#craftsmanship,
+#acquire {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 800px; /* Placeholder height prevents layout shift */
+}
+
+/* Custom Cursor styles */
+.custom-cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-gold);
+    border-radius: 50%;
+    z-index: 10000;
+    pointer-events: none;
+    opacity: 0;
+    will-change: transform, opacity;
+}
+.custom-cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--accent-gold);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    /* Removed width/height/background-color from will-change — use transform:scale instead */
+    will-change: transform, opacity;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, border-color 0.3s ease;
+}
+.custom-cursor-ring.cursor-hover {
+    transform: scale(1.5) translate(-50%, -50%) !important; /* GPU scale instead of width/height */
+    background-color: rgba(197, 168, 128, 0.12);
+    border-color: rgba(197, 168, 128, 0.8);
+}
+.custom-cursor-dot.cursor-hover {
+    opacity: 0;
+}
+@media (pointer: fine) {
+    body.custom-cursor-active {
+        cursor: none;
+    }
+    body.custom-cursor-active a,
+    body.custom-cursor-active button,
+    body.custom-cursor-active input,
+    body.custom-cursor-active textarea,
+    body.custom-cursor-active select,
+    body.custom-cursor-active .mobile-menu-toggle {
+        cursor: none !important;
+    }
+}
+@media (pointer: coarse) {
+    .custom-cursor-dot,
+    .custom-cursor-ring {
+        display: none !important;
+    }
+}
+
+/* Card Glow Overlays */
+.card-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(197, 168, 128, 0.14) 0%, rgba(197, 168, 128, 0) 60%);
+    pointer-events: none;
+    z-index: 2;
+    mix-blend-mode: overlay;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+.specs-visual:hover .card-glow,
+.acquire-card:hover .card-glow {
+    opacity: 1;
+}
+
+/* Button Shimmers */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 25%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.18), transparent);
+    transform: skewX(-25deg);
+    pointer-events: none;
+}
+.btn:hover::after {
+    left: 150%;
+    transition: left 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Nav Link Underlines */
+.nav-link {
+    position: relative;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--accent-gold);
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+}
+
+/* Dynamic Scroll Progress Bar */
+/* Uses transform:scaleX instead of width to keep animation on the GPU compositor thread */
+.scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width, scaled down by GSAP */
+    height: 2.5px;
+    background: linear-gradient(90deg, var(--accent-gold) 0%, #ffffff 100%);
+    z-index: 10002;
+    transform: scaleX(0);
+    transform-origin: left center;
+    will-change: transform;
+}
+
+/* Luxurious Navbar Scrolled State */
+.navbar.navbar-scrolled {
+    background: rgba(10, 10, 10, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(197, 168, 128, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.navbar.navbar-scrolled .nav-container {
+    padding: 0.9rem 2rem;
+}
+
+/* Active Nav Links Underlines */
+.nav-link.active {
+    color: var(--text-white);
+}
+
+.nav-link.active::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+}
+
+/* Reset hover states on touch-only devices to prevent sticky hover bugs */
+@media (hover: none) {
+    .btn-outline:hover {
+        background: transparent !important;
+        color: var(--text-white) !important;
+        border-color: var(--border-color) !important;
+    }
+    .btn-gold:hover {
+        background: var(--accent-gold) !important;
+        border-color: var(--accent-gold) !important;
+        box-shadow: none !important;
+    }
+    .btn:hover::after {
+        display: none !important;
+    }
+    .btn-craftsmanship-explore:hover .arrow {
+        transform: none !important;
+    }
+    .nav-link:hover {
+        color: var(--text-grey) !important;
+    }
+    .nav-link:hover::after {
+        transform: scaleX(0) !important;
+    }
+    .nav-link.active {
+        color: var(--text-white) !important;
+    }
+    .nav-link.active::after {
+        transform: scaleX(1) !important;
+    }
+    .logo:hover {
+        color: var(--text-white) !important;
+        text-shadow: none !important;
+    }
+    .footer-link:hover {
+        color: var(--text-grey) !important;
+    }
+    .social-link:hover {
+        color: var(--text-grey) !important;
+    }
+}
+
+/* Accessibility & Focus Outlines */
+.skip-to-content {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    background-color: var(--accent-gold);
+    color: var(--bg-black);
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    z-index: 10000;
+    text-decoration: none;
+    transition: top 0.3s ease;
+}
+
+.skip-to-content:focus-visible {
+    top: 1rem;
+    outline: 2px solid var(--text-white) !important;
+    outline-offset: 2px !important;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--accent-gold) !important;
+    outline-offset: 4px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto !important;
+    }
+    *, *::before, *::after {
+        animation-delay: -1ms !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        background-attachment: scroll !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+    }
+    .custom-cursor-dot,
+    .custom-cursor-ring {
+        display: none !important;
     }
 }

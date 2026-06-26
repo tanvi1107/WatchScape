@@ -3,26 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
     <title>KRONOS APEX | The Zenith of Haute Horlogerie</title>
     <meta name="description" content="Experience the KRONOS Apex, a luxury timepiece forged from 316L stainless steel, housing the automatic Caliber K-18 movement. Hand-crafted engineering meets timeless design.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <!-- GSAP CDN preconnect -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Skip Navigation Link -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
     <!-- Preloader Screen -->
-    <div id="preloader" class="preloader">
+    <div id="preloader" class="preloader" role="status" aria-live="polite" aria-busy="true" aria-label="Loading Website">
         <div class="preloader-content">
             <h1 class="preloader-title">KRONOS</h1>
-            <p class="preloader-subtitle">APEX COLLECTION</p>
-            <div class="progress-container">
-                <div class="progress-bar" id="progress-bar"></div>
+            <div class="luxury-loader">
+                <svg class="loader-svg" viewBox="0 0 100 100">
+                    <circle class="loader-bg-circle" cx="50" cy="50" r="45"></circle>
+                    <circle class="loader-progress-circle" id="loader-circle" cx="50" cy="50" r="45"></circle>
+                </svg>
+                <div class="loader-percentage" id="loader-percentage">00</div>
             </div>
-            <div class="progress-text" id="progress-text">0%</div>
+            <p class="preloader-subtitle">Loading Collection</p>
         </div>
     </div>
 
@@ -30,7 +39,7 @@
     <header class="navbar">
         <div class="nav-container">
             <a href="#" class="logo">KRONOS</a>
-            <nav class="nav-menu">
+            <nav class="nav-menu" id="primary-nav-menu" aria-label="Primary Navigation" role="navigation">
                 <a href="#hero-scroll" class="nav-link">Overview</a>
                 <a href="#features" class="nav-link">Features</a>
                 <a href="#specifications" class="nav-link">Specifications</a>
@@ -39,13 +48,14 @@
             <div class="nav-cta">
                 <a href="#acquire" class="btn btn-outline">Acquire</a>
             </div>
-            <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+            <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false" aria-controls="primary-nav-menu">
                 <span></span>
                 <span></span>
             </button>
         </div>
     </header>
 
+    <main id="main-content">
     <!-- Scroll Hero Section (Holds the canvas scroll animation) -->
     <section id="hero-scroll" class="hero-scroll-container">
         <div class="canvas-sticky-wrapper">
@@ -56,7 +66,7 @@
                 
                 <!-- Frame Group 1 (0% - 20% scroll) -->
                 <div class="overlay-text active" id="text-frame-1">
-                    <h2 class="hero-title serif">KRONOS APEX</h2>
+                    <h1 class="hero-title serif">KRONOS APEX</h1>
                     <p class="hero-subtitle accent">THE ZENITH OF TIMEKEEPING</p>
                     <div class="scroll-indicator">
                         <span class="mouse-icon"><span class="mouse-wheel"></span></span>
@@ -90,55 +100,69 @@
     </section>
 
     <!-- Detailed Features Section -->
-    <section id="features" class="section features-section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag accent">DETAILS OF THE UNCOMPROMISING</span>
-                <h2 class="section-title serif">Exceptional Craftsmanship</h2>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <polygon points="12 2 2 7 12 12 22 7 12 2" />
-                            <polyline points="2 17 12 22 22 17" />
-                            <polyline points="2 12 12 17 22 12" />
-                        </svg>
-                    </div>
-                    <h4 class="feature-title serif">Sapphire Dome</h4>
-                    <p class="feature-desc">Virtually indestructible dome sapphire crystal, second only to diamond in hardness, ensuring lifelong clarity.</p>
+    <section id="features" class="section features-section storytelling-features">
+        <div class="features-sticky-wrapper">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-tag accent">DETAILS OF THE UNCOMPROMISING</span>
+                    <h2 class="section-title serif">Exceptional Craftsmanship</h2>
+                    <p class="section-desc-luxury">
+                        Every curve, link, and mechanical articulation of the Kronos Apex represents a milestone in horological engineering. Hand-finished by master watchmakers to ensure lifetime durability and timeless elegance.
+                    </p>
                 </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <circle cx="12" cy="12" r="10" />
-                            <polyline points="12 6 12 12 16 14" />
-                        </svg>
+                
+                <div class="showcase-container">
+                    <!-- Center Watch Render -->
+                    <div class="watch-center-wrapper">
+                        <div class="watch-glow"></div>
+                        <div class="watch-float-container">
+                            <img src="ezgif-4957466ffa28f479-jpg/ezgif-frame-150.jpg" alt="Kronos Apex Watch Render" class="watch-render-img" loading="lazy" decoding="async">
+                        </div>
                     </div>
-                    <h4 class="feature-title serif">72-Hour Reserve</h4>
-                    <p class="feature-desc">A dual-barrel power system ensures that your timepiece remains charged and perfectly accurate even through the weekend.</p>
-                </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 2L2 22h20L12 2z" />
-                        </svg>
-                    </div>
-                    <h4 class="feature-title serif">100M Water Resistance</h4>
-                    <p class="feature-desc">Engineered with double-gasket screw-down crown to withstand professional diving conditions down to 10 atmospheres.</p>
-                </div>
+                    <!-- SVG Connector Lines Overlay -->
+                    <svg class="connectors-svg" viewBox="0 0 900 480" preserveAspectRatio="none" aria-hidden="true">
+                        <!-- Line 1: Sapphire Crystal (Top Left: text right edge ~270px, 110px to watch ~395px, 190px) -->
+                        <path id="line-sapphire" class="connector-line" d="M 270 110 L 395 190" />
+                        <!-- Line 2: Titanium Case (Top Right: text left edge ~630px, 110px to watch ~505px, 190px) -->
+                        <path id="line-case" class="connector-line" d="M 630 110 L 505 190" />
+                        <!-- Line 3: Automatic Movement (Bottom Left: text right edge ~270px, 370px to watch ~440px, 230px) -->
+                        <path id="line-movement" class="connector-line" d="M 270 370 L 440 230" />
+                        <!-- Line 4: Premium Leather Strap (Bottom Right: text left edge ~630px, 370px to watch ~460px, 320px) -->
+                        <path id="line-strap" class="connector-line" d="M 630 370 L 460 320" />
+                    </svg>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                        </svg>
+                    <!-- Feature Callouts (Absolutely Positioned) -->
+                    <!-- Top-Left Callout -->
+                    <div class="feature-callout callout-tl" id="callout-sapphire">
+                        <h4 class="callout-title serif">Sapphire Crystal</h4>
+                        <p class="callout-desc">Double-domed, scratch-resistant sapphire with multi-layer anti-reflective coating.</p>
                     </div>
-                    <h4 class="feature-title serif">Super-LumiNova</h4>
-                    <p class="feature-desc">Premium Swiss luminescence pigments coated on hands and markers for unparalleled legibility in dark environments.</p>
+
+                    <!-- Top-Right Callout -->
+                    <div class="feature-callout callout-tr" id="callout-case">
+                        <h4 class="callout-title serif">Titanium Case</h4>
+                        <p class="callout-desc">Grade 5 titanium body, brushed and polished to mirror perfection, ultra-lightweight.</p>
+                    </div>
+
+                    <!-- Bottom-Left Callout -->
+                    <div class="feature-callout callout-bl" id="callout-movement">
+                        <h4 class="callout-title serif">Automatic Movement</h4>
+                        <p class="callout-desc">Caliber K-18 self-winding mechanical heart with 72 hours of power reserve.</p>
+                    </div>
+
+                    <!-- Bottom-Right Callout -->
+                    <div class="feature-callout callout-br" id="callout-strap">
+                        <h4 class="callout-title serif">Premium Leather Strap</h4>
+                        <p class="callout-desc">Hand-stitched Tuscan alligator leather strap with solid titanium folding clasp.</p>
+                    </div>
+
+                    <!-- Explore CTA Button -->
+                    <div class="craft-cta-wrapper text-center">
+                        <a href="#specifications" class="btn-craftsmanship-explore btn btn-gold">
+                            Explore the Craftsmanship <span class="arrow">&rarr;</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -227,10 +251,10 @@
                     
                     <form class="acquire-form" onsubmit="event.preventDefault(); alert('Thank you. A specialist will contact you within 24 hours.');">
                         <div class="form-group">
-                            <input type="text" placeholder="Full Name" required class="form-input">
+                            <input type="text" placeholder="Full Name" aria-label="Full Name" required class="form-input">
                         </div>
                         <div class="form-group">
-                            <input type="email" placeholder="Email Address" required class="form-input">
+                            <input type="email" placeholder="Email Address" aria-label="Email Address" required class="form-input">
                         </div>
                         <button type="submit" class="btn btn-gold btn-block">Request Allocation</button>
                     </form>
@@ -238,6 +262,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -281,9 +306,9 @@
     </footer>
 
     <!-- GSAP & ScrollTrigger CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
     <!-- Main JS Application -->
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
 </body>
 </html>
