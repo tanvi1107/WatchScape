@@ -1258,14 +1258,12 @@ body {
     transform-origin: center center;
 }
 
-/* Off-screen sections: skip rendering until near viewport for faster initial load */
-#features,
-#specifications,
-#craftsmanship,
-#acquire {
-    content-visibility: auto;
-    contain-intrinsic-size: 0 800px; /* Placeholder height prevents layout shift */
-}
+/* NOTE: content-visibility:auto intentionally omitted for pinned/scroll-triggered sections.
+   GSAP ScrollTrigger measures document height at initialization to place pin spacers.
+   content-visibility:auto reports estimated intrinsic heights instead of real rendered heights,
+   causing pin spacers to be inserted at incorrect offsets and pushing the footer out of view
+   on first load. The bug manifests only in production because DevTools forces a layout
+   recalculation that fixes the offsets. Removed to ensure correct ScrollTrigger geometry. */
 
 /* Custom Cursor styles */
 .custom-cursor-dot {

@@ -203,10 +203,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             preloader.style.display = 'none';
                             preloader.setAttribute('aria-hidden', 'true');
                             preloader.setAttribute('aria-busy', 'false');
+                            // Same fix as non-reduced path: initApp() runs inside onComplete
+                            // so ScrollTrigger sees the correct post-preloader document height.
+                            initApp();
                         }
-                    }, "-=0.1")
-                    .add(() => {
-                        initApp();
                     }, "-=0.1");
             } else {
                 exitTimeline
@@ -225,11 +225,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             preloader.style.display = 'none';
                             preloader.setAttribute('aria-hidden', 'true');
                             preloader.setAttribute('aria-busy', 'false');
+                            // initApp() is called here — AFTER preloader is fully removed from
+                            // document flow — so ScrollTrigger measures the correct document height.
+                            // Previously called mid-animation at "-=0.8" which caused pin spacers
+                            // to be calculated against an incorrect (preloader-inflated) page height.
+                            initApp();
                         }
-                    }, "-=0.3")
-                    .add(() => {
-                        initApp(); // Instantly zooms in the watch canvas and slides up the first text block
-                    }, "-=0.8");
+                    }, "-=0.3");
             }
         } else {
             requestAnimationFrame(updateProgressLoop);
@@ -302,6 +304,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Register ScrollTrigger plugin
         gsap.registerPlugin(ScrollTrigger);
+
+        // After ALL assets are loaded (fonts, images, etc.) force a full ScrollTrigger
+        // recalculation. Google Fonts load asynchronously after DOMContentLoaded and can
+        // shift element heights, which misaligns pin spacers calculated at initApp() time.
+        // The double-rAF ensures this runs after the browser's own layout pass on 'load'.
+        // invalidateOnRefresh:true on each pinned timeline re-evaluates dynamic end values.
+        window.addEventListener('load', () => {
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    ScrollTrigger.refresh(true);
+                });
+            });
+        }, { once: true, passive: true });
+
+        // Also refresh after a short delay to catch any deferred rendering
+        // (e.g., content-paint, image decoding) that happens after 'load' fires.
+        setTimeout(() => ScrollTrigger.refresh(true), 500);
 
         // Dynamically calculate scroll height based on frame count (15px of scroll per frame)
         const scrollDistancePerFrame = 15;
@@ -400,7 +419,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 end: () => `+=${totalScrollDistance}`,
                 scrub: 0.8,
                 pin: true,
-                anticipatePin: 1
+                anticipatePin: 1,
+                // Recompute end value and pin spacer height on every ScrollTrigger.refresh() call.
+                // Without this, a refresh after fonts/images load would not update the spacer size.
+                invalidateOnRefresh: true
             }
         });
 
@@ -644,7 +666,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     end: () => `+=${window.innerHeight * 2.5}`, // Locks scroll for 2.5 screens
                     scrub: 0.8,
                     pin: true,
-                    anticipatePin: 1
+                    anticipatePin: 1,
+                    // Recompute dynamic end value and pin spacer on every refresh call.
+                    invalidateOnRefresh: true
                 }
             });
 
